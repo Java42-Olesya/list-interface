@@ -44,8 +44,8 @@ public interface List<T> {
 	 * @return true if there is at least one object equaled to a given pattern, otherwise - false
 	 */
 	default boolean contains(T pattern) {
-		//TODO
-		return false;
+		
+		return indexOf(new isEqualsPredicate<T>(pattern)) != -1;
 	}
 	
 	/**
@@ -54,8 +54,8 @@ public interface List<T> {
 	 * @return index of the first occurrence of an object equaled to a given pattern, or -1 if no such object
 	 */
 	default int indexOf(T pattern) {
-		//TODO
-		return -1;
+		
+		return indexOf(new isEqualsPredicate<T>(pattern));
 	}
 	
 	/**
@@ -64,18 +64,18 @@ public interface List<T> {
 	 * @return index of the last occurrence of an object equaled to a given pattern, or -1 if no such object
 	 */
 	default int lastIndexOf(T pattern) {
-		//TODO
-		return -1;
+	
+		return lastIndexOf(new isEqualsPredicate<T>(pattern));
 	}
 	
 	/**
 	 * 
 	 * @param predicate
-	 * @return true in the case the list contains ate least one object matching a condition of a given predicate, otherwise - false
+	 * @return true in the case the list contains at least one object matching a condition of a given predicate, otherwise - false
 	 */
 	default boolean contains(Predicate<T> predicate) {
-		//TODO
-		return false;
+		
+		return indexOf(predicate) >= 0;
 	}
 	/**
 	 * 
@@ -117,8 +117,8 @@ public interface List<T> {
 	 * @return reference to being removed object or null if no such object
 	 */
 	default T remove (T pattern) {
-		//TODO default implementation  based on other interface methods
-		return null;
+		
+		return removeIf(new isEqualsPredicate<T>(pattern)) == true ? pattern : null;
 	}
 	
 	/**
@@ -137,8 +137,8 @@ public interface List<T> {
 	 * @return true if at least one object has been removed
 	 */
 	default boolean retainAll(List<T> list) {
-		//TODO
-		return false;
+		
+		return removeIf(new RetainAllPredicate<>(list));
 	}
 
 }
