@@ -121,7 +121,7 @@ public interface List<T> {
 	 * @return reference to being removed object or null if no such object
 	 */
 	default T remove (T pattern) {
-		
+		//[YG] - major bug. Test case: removing equaled numbers. There should be "removes first occurrence in the list that is equaled to a given pattern"
 		return removeIf(new isEqualsPredicate<T>(pattern)) == true ? pattern : null;
 	}
 	
@@ -141,7 +141,7 @@ public interface List<T> {
 	 * @return true if at least one object has been removed
 	 */
 	default boolean retainAll(List<T> list) {
-		
+		//[YG] - cosmetic. try not to introduce the class RetainAllPredicate, but to apply already existing RemoveAllPredicate
 		return removeIf(new RetainAllPredicate<>(list));
 	}
 
