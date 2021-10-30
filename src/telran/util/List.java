@@ -122,7 +122,7 @@ public interface List<T> {
 	 */
 	default T remove (T pattern) {
 		
-		return removeIf(new isEqualsPredicate<T>(pattern)) == true ? pattern : null;
+		return remove(indexOf(pattern));
 	}
 	
 	/**
@@ -141,8 +141,15 @@ public interface List<T> {
 	 * @return true if at least one object has been removed
 	 */
 	default boolean retainAll(List<T> list) {
-		
-		return removeIf(new RetainAllPredicate<>(list));
+		int oldSize = size();
+		Predicate<T> predicate = new RemoveAllPredicate<>(list);
+		for (int i = size() - 1; i >= 0; i--) {
+			if (!predicate.test(get(i))) {
+				remove(i);
+			}
+		}
+		return oldSize > size();
+
 	}
 
 }
