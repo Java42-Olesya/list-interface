@@ -101,8 +101,12 @@ public interface List<T> {
 	/**
 	 * sorts array of T objects in accordance with the natural order
 	 */
+
+
+	@SuppressWarnings("unchecked")
 	default void sort() {
-		//TODO write default implementation based on the method sort with comparator
+		sort((Comparator<T>)Comparator.naturalOrder());
+			
 	}
 	
 	/**
