@@ -141,15 +141,8 @@ public interface List<T> {
 	 * @return true if at least one object has been removed
 	 */
 	default boolean retainAll(List<T> list) {
-		int oldSize = size();
-		Predicate<T> predicate = new RemoveAllPredicate<>(list);
-		for (int i = size() - 1; i >= 0; i--) {
-			if (!predicate.test(get(i))) {
-				remove(i);
-			}
-		}
-		return oldSize > size();
 
+		return removeIf(new RemoveAllPredicate<>(list).negate());
 	}
 
 }
